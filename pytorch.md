@@ -35,7 +35,7 @@ data = torch.tensor([
 
 print("origin data: {}".format(data))
 print("data==2 data: {}".format(data==2))
-data[data==2]=-1
+data[data==2]=-1    # 使用布尔值索引修改张量内容
 print("changed data: {}".format(data))
 
 output:
