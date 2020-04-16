@@ -5,6 +5,6 @@ numpy、pandas、sklearn、pytorch等数据分析工具的一些使用技巧
 * [scipy](scipy.md)
 * [sklearn](sklearn.md)
 * [pandas](pandas.md)
-* [torch](torch.md)
+* [pytorch](pytorch.md)
 
 
