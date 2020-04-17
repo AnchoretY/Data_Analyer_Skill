@@ -12,7 +12,7 @@ output:
   tensor([[0., 0., 3.],
           [4., 0., 5.]])
 ```
-###### scipy sparse metric转换成torch sparse tensor
+##### scipy sparse metric转换成torch sparse tensor
 &emsp;&emsp;pytorch中`不能直接将sparse metric转化成sparse tensor，只能通过重新拆解索引、数据来重新构成sparse tensor`，具体的使用方式如下所示。
 ```python
 import scipy.sparse as sp
@@ -38,8 +38,6 @@ output:
   sparse tensor: tensor([[0, 5],
         [4, 0]])
 ```
-
-##### scipy稀疏矩阵转化为torch的系数张量
 
 
 
