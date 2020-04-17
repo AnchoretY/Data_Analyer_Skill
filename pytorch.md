@@ -1,5 +1,46 @@
 ### 1.稀疏张量
-&emsp;&emsp;
+&emsp;&emsp;pytorch支持使用coo格式的稀疏张量,与scipy中不同的是pytorch中分别输入行索引和列索引不同，pytorch将行索引和列索引组成一个二维的tensor进行输入。具体使用方式如下所示：
+
+```python
+i = torch.LongTensor([[0, 1, 1],
+                    [2, 0, 2]])
+v = torch.FloatTensor([3, 4, 5])
+sparse_tensor = torch.sparse.FloatTensor(i, v, torch.Size([2,3]))
+print(sparse_tensor.to_dense())
+
+output:
+  tensor([[0., 0., 3.],
+          [4., 0., 5.]])
+```
+###### scipy sparse metric转换成torch sparse tensor
+&emsp;&emsp;pytorch中`不能直接将sparse metric转化成sparse tensor，只能通过重新拆解索引、数据来重新构成sparse tensor`，具体的使用方式如下所示。
+```python
+import scipy.sparse as sp
+i = np.array([1,0])
+j = np.array([0,1])
+d = np.array([4,5])
+
+sparse_matric = sp.coo_matrix((d,(i,j)),(2,2))    # 创建稀疏矩阵
+
+# 组成tensor索引，tensor数据
+index = torch.from_numpy(
+    np.array([
+        sparse_matric.row,sparse_matric.col]
+)).long()
+data = torch.from_numpy(
+    np.array(sparse_matric.data)
+)
+
+sparse_tensor = torch.sparse.FloatTensor(index,data,torch.Size([2,2]))  # 利用前面的索引和数据重新构成稀疏tensor
+print("sparse tensor: {}".format(sparse_tensor.to_dense()))
+
+output:
+  sparse tensor: tensor([[0, 5],
+        [4, 0]])
+```
+
+##### scipy稀疏矩阵转化为torch的系数张量
+
 
 
 
