@@ -20,7 +20,7 @@
 
 &emsp;&emsp;在pytorch中Tensor创建方式有很多，其构造接口与numpy的矩阵创建方法十分类似，如ones()、eye()、zeros()等，下面为常见的Tensor创建方式:
 
-##### 1.torch.Tensor(2,2)
+#### 1.torch.Tensor(2,2)
 
 &emsp;&emsp;可以使用torch.Tensor(2,2)命令来**创建指定大小的默认类型Tensor（值随机）**.
 
@@ -32,11 +32,11 @@ output:
           [ 9.0476e-37,  0.0000e+00]])
 ~~~
 
-##### 2.torch.IntTensor(2,2)
+#### 2.torch.IntTensor(2,2)
 
 &emsp;&emsp;使用torch.IntTensor(2,2)来创建**指定类型的Tensor(值随机)**，与上面类似。
 
-##### 3.使用Python的list进行创建
+#### 3.使用Python的list进行创建
 
 &emsp;&emsp;已有list值时可以直接使用list创建**指定内容的Tensor**
 
@@ -48,7 +48,7 @@ output:
         [3., 4.]])
 ~~~
 
-##### 4.torch.zeros(2,2)
+#### 4.torch.zeros(2,2)
 
 &emsp;&emsp;使用torch.zeros(2,2)可以声明指定大小的全零Tensor。
 
@@ -65,11 +65,11 @@ output:
         [False, False]])
 ~~~
 
-##### 5.torch.ones(2,2)
+#### 5.torch.ones(2,2)
 
 &emsp;&emsp;使用torch.ones(2,2)可以声明指定大小的全一Tensor。
 
-##### 6.torch.eys(3,3)
+#### 6.torch.eys(3,3)
 
 &emsp;&emsp;使用torch.eye(3,3)可以声明指定大小的对角Tensor（对角线上元素为1，其他位置为0）
 
@@ -81,7 +81,7 @@ ouput:
         [0., 0., 1.]])
 ~~~
 
-##### 7.Torch.randn(2,2)系列函数
+#### 7.Torch.randn(2,2)系列函数
 
 &emsp;&emsp;使用torch.randn、torch.randint创建指定大小类型的数据。
 
