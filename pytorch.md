@@ -114,7 +114,136 @@ output:
   tensor([ 0.1842, -0.2821])
 ~~~
 
+### 3.Tensor的组合与分块
 
+#### 1.Tensor的组合
+
+&emsp;&emsp;torch中为Tensor提供了`torch.cat()`和`troch.stack()`两个函数。
+
+&emsp;&emsp;**torch.cat()**为concatenate的简称，用来**沿着已有数据的某一维度进行拼接**，操作后的**总数据维度不变**，在进行拼接时，**除了要进行拼接的维度以外的维度都必须向相同**，可以通过dim指定按照第几维进行拼接，默认为0.
+
+~~~python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+b = torch.Tensor([[1,1,1],[2,2,2]])
+
+# 以第0维进行拼接
+torch.cat([a,b])
+output:
+  tensor([[1., 2., 3.],
+        [4., 5., 6.],
+        [1., 1., 1.],
+        [2., 2., 2.]])
+# 以第一维进行拼接
+torch.cat([a,b],dim=1)
+output:
+  tensor([[1., 2., 3., 1., 1., 1.],
+        [4., 5., 6., 2., 2., 2.]])
+~~~
+
+&emsp;&emsp;**torch.stack()**函数为**按照指定纬度新增维度，并且按照指定的维度进行叠加**，需要输入的**两个Tensor维度完全相同**。
+
+~~~python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+b = torch.Tensor([[1,1,1],[2,2,2]])
+# 在第0维进行stack，输出维度为2*2*3
+torch.stack([a,b])
+output:
+  tensor([[[1., 2., 3.],
+         [4., 5., 6.]],
+          
+        [[1., 1., 1.],
+         [2., 2., 2.]]])
+# 以第1维进行stack，输出维度为2*2*3
+torch.stack([a,b],axis=1)
+output:
+  tensor([[[1., 2., 3.],
+         [1., 1., 1.]],
+
+        [[4., 5., 6.],
+         [2., 2., 2.]]])
+# 以第2维进行stack，输出维度为2*3*2
+torch.stack([a,b],axis=2)
+output:
+	tensor([[[1., 1.],
+         [2., 1.],
+         [3., 1.]],
+
+        [[4., 2.],
+         [5., 2.],
+         [6., 2.]]])
+~~~
+
+#### 2.分块
+
+&emsp;&emsp;pytorch中也提供了两种分块函数，包括torch.chunk()和torch.split()。
+
+&emsp;&emsp;torch.chunk()表示指定分块数量进行分块。
+
+~~~python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+torch.chunk(a,2,dim=0)
+
+output:
+  (tensor([[1., 2., 3.]]), tensor([[4., 5., 6.]]))
+~~~
+
+&emsp;&emsp;torch.split()指定块大小进行分块。
+
+~~~python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+# 沿第0维进行分块，每一块维度为2，由于第一维度总维度为2，因此相当于没有分割
+torch.split(a,2,dim=0)
+output:
+  (tensor([[1., 2., 3.],
+         [4., 5., 6.]]),)
+  
+# 沿第1维进行切分，每一块维度为2，因此第一个Tensor为2*2，第二个维度为2*1
+torch.split(a,2,dim=1)
+output:
+  (tensor([[1., 2.],
+         [4., 5.]]), tensor([[3.],
+         [6.]]))
+~~~
+
+### 4.索引
+
+&emsp;&emsp;在pytorch中Tensor支持下标索引、表达式索引。
+
+~~~ python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+
+# 下标索引
+a[:,1]
+output:
+  tensor([2., 5.])
+
+# 选择索引
+a[a>2]
+output:
+  tensor([3., 4., 5., 6.])
+~~~
+
+&emsp;&emsp;使用torch.where()和torch.clamp()进行选择性索引。
+
+~~~python
+a = torch.Tensor([[1,2,3],[4,5,6]])
+
+# torch.where(condition,x,y),满足condition的位置输出x,不满足的位置输出y
+torch.where(a<3,torch.full_like(a,1),a)
+output:
+  tensor([[1., 1., 3.],
+        [4., 5., 6.]])
+  
+# torch.clamp()函数可以对最大值最小值进行限制
+torch.clamp(a,2,5)
+output:
+  tensor([[2., 2., 3.],
+        [4., 5., 5.]])
+~~~
+
+
+
+### 5.Tensor变形操作
 
 
 
